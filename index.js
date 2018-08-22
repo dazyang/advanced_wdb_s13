@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000
 
 const todoRoutes = require('./routes/todos') // this contains the exports of our todo route
 
-app.get('/', function(req,res){
+app.get('/', function(req, res){
   res.send('Hello, this message is from the root route.')
 })
 

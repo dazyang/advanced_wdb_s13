@@ -17,6 +17,9 @@ router.get('/', function(req, res){
   })
 }) 
 
+router.post('/', function(req, res){
+  res.send('This is post quest!')
+})
 
 
 module.exports = router
