@@ -28,6 +28,17 @@ router.post('/', function(req, res){
   })
 })
 
+router.get('/:todoId', function(req, res){
+  // param will be filled whatever the variables are //:define_something_as_a_path_variable
+  db.Todo.findById(req.params.todoId)
+  .then(function(foundTodo) {
+    res.json(foundTodo)
+  })
+  .catch(function (err) {
+    res.send(err)
+  })
+}) 
+
 
 module.exports = router
 
