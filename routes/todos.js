@@ -18,8 +18,22 @@ router.get('/', function(req, res){
 }) 
 
 router.post('/', function(req, res){
-  res.send('This is post quest!')
+  //bodyparser is giving us the ability to now reference req.body
+  db.Todo.create(req.body) 
+  .then(function(newTodo){
+    res.status(201).json(newTodo)
+  }) 
+  .catch(function(err){
+    res.send(err)
+  })
 })
 
 
 module.exports = router
+
+// Defining the index route 
+// GET /api/todos (List all todos)
+// POST /api/todos (Create new todo)
+// GET  /api/todos/:todold (Retrieve a todo)
+// PUT  /api/todos/:todold (Update a todo)
+// DELETE  /api/todos/:todold (Delete a todo)
