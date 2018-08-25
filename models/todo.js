@@ -1,12 +1,10 @@
 const mongoose = require('mongoose')
-
-
 // Schema
 // name
 // completed
 // createdDate
 
-const todoSchema =new mongoose.Schema({
+const todoSchema = new mongoose.Schema({
   name: {
     type: String,
     required: 'Name cannot be blank!'
