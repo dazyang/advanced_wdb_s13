@@ -13,8 +13,8 @@ const todoRoutes = require('./routes/todos') // this contains the exports of our
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true})) //these two lines are going to allow us to access the request body that comes in, whether it's a put request or post request
-app.use(epxress.static(__dirname + '/public'))
-app.use(epxress.static(__dirname + '/views'))
+app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/views'))
 
 
 app.get('/', function(req, res){
