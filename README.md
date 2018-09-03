@@ -1,2 +1,2 @@
-# advanced_wdb_s13
+# Single Page Todo List with Express, Mongo and jQuery  
 Creating JSON API with Node and Mongo
