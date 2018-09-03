@@ -1,11 +1,35 @@
 $(document).ready(function(){
   $.getJSON("/api/todos")
   .then(addTodos)
+
+  $('#todoInput').keypress(function(event){
+    if (event.which == 13) {
+      createTodo()
+    }
+  })
 })
 
 function addTodos(todos){
   todos.forEach(function(todo){
-    const newTodo = $("<li class='task'>" + todo.name + "</li>")
-    $('.list').append(newTodo)
+   addTodo(todo)
+  })
+}
+
+function addTodo(todo){
+  const newTodo = $("<li class='task'>" + todo.name + "</li>")
+  if (todo.completed) { newTodo.addClass('done') }
+  $('.list').append(newTodo)
+}
+
+function createTodo(newTodo){
+  // send request to create to-do
+  const userInput = $('#todoInput').val()
+  $.post('api/todos', {name: userInput})
+  .then(function(newTodo){
+    $('#todoInput').val('')
+    addTodo(newTodo)
+  })
+  .catch(function(err){
+    console.log(err)
   })
 }
