@@ -8,8 +8,14 @@ $(document).ready(function(){
       createTodo()
     }
   })
+
+  $('.list').on('click', 'li', function(){
+    updateTodo($(this))
+  })
   //The document is listening for clicks on something that exists on the page at the beginning, within that we are looking for 'span'
-  $('.list').on('click', 'span', function(){
+  $('.list').on('click', 'span', function(event){
+    event.stopPropagation() 
+    //the stopPropagation method will stop the event from bubbling up so that when we click on the span it's not going 
      removeTodo($(this).parent())
   })
 })
@@ -24,6 +30,7 @@ function addTodo(todo){
   const newTodo = $("<li class='task'>" + todo.name + "<span>X</span></li>")
   // jQuery's .data method stores little pieces of data, in this case the id
   newTodo.data('id', todo._id)
+  newTodo.data('completed', todo.completed)
   if (todo.completed) { newTodo.addClass('done') }
   $('.list').append(newTodo)
 }
@@ -54,4 +61,19 @@ function removeTodo(todo){
     .catch(function(err){
       console.log(err)
     })
+}
+
+function updateTodo(todo){
+  const updateUrl = 'api/todos/' + todo.data('id')
+  const isDone = !todo.data('completed') //check the current state is completed. If it is, when clicked we want it to be the opposite
+  const updateData = {completed: isDone} //then the data gets updated
+  $.ajax({
+    method: 'PUT',
+    url: updateUrl,
+    data: updateData
+  })
+  .then(function(updatedTodo){
+    todo.toggleClass('done')
+    todo.data('completed', isDone)
+  })
 }
